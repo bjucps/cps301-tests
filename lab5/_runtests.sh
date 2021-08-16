@@ -34,10 +34,10 @@ if stderr=$(import_db lab5.sql 2>&1); then
 fi
 report-result "Must Pass" "valid lab5.sql" $pass 
 
-require-pdf lab5.pdf
+require-pdf report.pdf
 
-
-if pytest lab5.py
+cp $TEST_DIR/conftest.py .
+if pytest _sqltest.py
 then
   echo "All tests passed."
 fi

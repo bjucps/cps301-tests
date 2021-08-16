@@ -1,13 +1,14 @@
 import pytest
 from _pytest.nodes import Item
 from _pytest.runner import CallInfo
-from subprocess import Popen
+import os
+
+TEST_RESULT_FILE = os.environ.get('TEST_RESULT_FILE')
 
 def report_result(category, case, res, logs=''):
-  if logs:
-      logs = logs.replace('"', '\"')
-  reporter = ("TestOutput \"%s\" \"%s\" %s \"%s\"") % (category, case, "true" if res == 'passed' else "false", logs)
-  Popen(['/bin/bash', '-c', reporter])
+  with open(TEST_RESULT_FILE, "a") as f:
+    res_str = 'PASS' if res == 'passed' else 'FAIL'
+    f.write(f"{res_str}~{category}~{case}\n")
     
 
 @pytest.hookimpl(hookwrapper=True)

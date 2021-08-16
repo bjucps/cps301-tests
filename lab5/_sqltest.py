@@ -4,10 +4,25 @@
 # See PEP-249 for the API standard: https://www.python.org/dev/peps/pep-0249/
 
 from mysql.connector import connect
+import mysql.connector
 import os
 
+# See https://stackoverflow.com/questions/27566078/how-to-return-str-from-mysql-using-mysql-connector
+class MyConverter(mysql.connector.conversion.MySQLConverter):
+
+    def row_to_python(self, row, fields):
+        row = super(MyConverter, self).row_to_python(row, fields)
+
+        def to_unicode(col):
+            if isinstance(col, bytearray):
+                return col.decode('utf-8')
+            return col
+
+        return[to_unicode(col) for col in row]  
+
+
 dbpassword = os.environ.get('DBPASS', '')
-cnx = connect(user='root', password=dbpassword, database=os.environ['DBNAME'])
+cnx = connect(user='root', password=dbpassword, database=os.environ['DBNAME'], converter_class=MyConverter)
 cursor = cnx.cursor()
 
 def select(sql):
