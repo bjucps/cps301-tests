@@ -47,28 +47,33 @@ function import_sqlite_db {
 }
 
 tr A-Z a-z < $SUBMISSION_DIR/wso.sql > /tmp/wso.sql
-tr A-Z a-z < $SUBMISSION_DIR/wsoschema.sql > /tmp/wsoschema.sql
 
 pass="FAIL"
 if stderr=$(import_db wso.sql 2>&1); then
     pass="PASS"
 fi
-report-result "Must Pass" "valid wso.sql" $pass 
+report-result  $pass "Must Pass" "valid wso.sql" 
 
-pass="FAIL"
-if stderr=$(import_db wsoschema.sql 2>&1); then
-    pass="PASS"
+if [ -r $SUBMISSION_DIR/wsoschema.sql ]
+then
+  tr A-Z a-z < $SUBMISSION_DIR/wsoschema.sql > /tmp/wsoschema.sql
+  pass="FAIL"
+  if stderr=$(import_db wsoschema.sql 2>&1); then
+      pass="PASS"
+  fi
+  report-result $pass "WSOSchema" "wsoschema.sql imports in MySQL"  
+
+  pass="FAIL"
+  if stderr=$(import_sqlite_db wsoschema.sql 2>&1); then
+      pass="PASS"
+  fi
+  # Delete database
+  [ -r $DBNAME ] && rm $DBNAME
+  report-result $pass  "WSOSchema" "wsoschema.sql imports in SQLite" 
+
+else
+  report-error "Warning" "Missing wsoschema.sql"
 fi
-report-result "Must Pass" "valid wsoschema.sql" $pass 
-
-pass="FAIL"
-if stderr=$(import_sqlite_db wsoschema.sql 2>&1); then
-    pass="PASS"
-fi
-
-# Delete database
-[ -r $DBNAME ] && rm $DBNAME
-report-result "SQLite" "valid wsoschema.sql" $pass 
 
 require-pdf report.pdf
 
