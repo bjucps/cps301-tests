@@ -18,19 +18,19 @@ def check_foreign_keys():
         order by table_name, column_name
   """)
 
-  EXPECTED_FOREIGN_KEYS = (
-      ('fills_role', 'person_id', 'person'),
-      ('fills_role', 'service_id', 'service'),
-      ('member_of', 'ensemble_id', 'ensemble'), 
-      ('member_of', 'person_id', 'person'), 
-      ('service_item', 'ensemble_id', 'ensemble'), 
-      ('service_item', 'event_type_id', 'event_type'), 
-      ('service_item', 'person_id', 'person'), 
-      ('service_item', 'service_id', 'service'), 
-      ('service_item', 'song_id', 'song'),
-      ('unavailable_for', 'person_id', 'person'), 
-      ('unavailable_for', 'service_id', 'service'), 
-    )
+  EXPECTED_FOREIGN_KEYS = [
+      ['fills_role', 'person_id', 'person'],
+      ['fills_role', 'service_id', 'service'],
+      ['member_of', 'ensemble_id', 'ensemble'], 
+      ['member_of', 'person_id', 'person'], 
+      ['service_item', 'ensemble_id', 'ensemble'], 
+      ['service_item', 'event_type_id', 'event_type'], 
+      ['service_item', 'person_id', 'person'], 
+      ['service_item', 'service_id', 'service'], 
+      ['service_item', 'song_id', 'song'],
+      ['unavailable_for', 'person_id', 'person'], 
+      ['unavailable_for', 'service_id', 'service'], 
+    ]
   output = 'Found the following in your database:\nTable                Column               Referenced Table\n--------------------------------------------------------------\n'
   correct_fks = 0
   for key in foreign_keys:
@@ -59,30 +59,30 @@ def check_table_columns():
   """)
   
   # No foreign keys here
-  EXPECTED_TABLE_COLS = (
-    ('ensemble', 'ensemble_id') ,
-    ('ensemble', 'name') ,
-    ('event_type', 'description') ,
-    ('event_type', 'event_type_id') ,
-    ('fills_role', 'confirmed'),
-    ('fills_role', 'role_type'),
-    ('person', 'email') ,
-    ('person', 'first_name') ,
-    ('person', 'last_name') ,
-    ('person', 'person_id') ,
-    ('service', 'service_id') ,
-    ('service', 'svc_datetime') ,
-    ('service', 'theme_event') ,
-    ('service_item', 'confirmed') ,
-    ('service_item', 'service_item_id') ,
-    ('service_item', 'seq_num') ,
-    ('service_item', 'title') ,
-    ('song', 'arranger') ,
-    ('song', 'hymnbook_num') ,
-    ('song', 'song_id') ,
-    ('song', 'song_type') ,
-    ('song', 'title'),
-)
+  EXPECTED_TABLE_COLS = [
+    ['ensemble', 'ensemble_id'] ,
+    ['ensemble', 'name'] ,
+    ['event_type', 'description'] ,
+    ['event_type', 'event_type_id'] ,
+    ['fills_role', 'confirmed'],
+    ['fills_role', 'role_type'],
+    ['person', 'email'] ,
+    ['person', 'first_name'] ,
+    ['person', 'last_name'] ,
+    ['person', 'person_id'] ,
+    ['service', 'service_id'] ,
+    ['service', 'svc_datetime'] ,
+    ['service', 'theme_event'] ,
+    ['service_item', 'confirmed'] ,
+    ['service_item', 'service_item_id'] ,
+    ['service_item', 'seq_num'] ,
+    ['service_item', 'title'] ,
+    ['song', 'arranger'] ,
+    ['song', 'hymnbook_num'] ,
+    ['song', 'song_id'] ,
+    ['song', 'song_type'] ,
+    ['song', 'title'],
+]
 
   correct_tcs = 0
   output = 'Found the following in your database:\nTable                Column\n----------------------------------\n'
