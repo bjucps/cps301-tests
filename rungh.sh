@@ -17,8 +17,7 @@ sudo systemctl start mysql.service
 # Rest of script runs in submission folder
 cd submission
 export SUBMISSION_DIR=$(pwd)
-export MYSQL_INIT_PW="--password=root"
-cp $TEST_BASE_DIR/util/my.cfg ~/.my.cnf
+cp $TEST_BASE_DIR/util/my.cnf ~/.my.cnf
 
 
 # Don't check the initial commit

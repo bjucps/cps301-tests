@@ -64,11 +64,11 @@ function run-tests {
         sleep 1
     done
 
-    mysql $MYSQL_INIT_PW -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY ''"
-    mysql $MYSQL_INIT_PW -e "flush privileges"
+    # mysql $MYSQL_INIT_PW -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY ''"
+    # mysql $MYSQL_INIT_PW -e "flush privileges"
 
-    mysql --user=root -e "create database ordentry"
-    mysql --user=root ordentry < $TEST_BASE_DIR/util/ordentry.sql
+    mysql -e "create database ordentry"
+    mysql ordentry < $TEST_BASE_DIR/util/ordentry.sql
 
     echo "Beginning test run with timeout $TIMEOUT"
     result=0
