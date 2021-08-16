@@ -59,7 +59,7 @@ function run-tests {
     fi
 
     echo "Starting MySQL"    
-    while ! mysql sys -e "select count(*)" 
+    while ! mysql $MYSQL_INIT_PW sys -e "select count(*)" 
     do
         sleep 1
     done
