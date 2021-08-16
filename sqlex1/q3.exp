@@ -1,0 +1,3 @@
+ordno	orddate	custno	empno	ordname	ordstreet	ordcity	ordstate	ordzip
+O1241518	2015-02-10	C9549302	NULL	Todd Hayes	1400 Main St.	Lynnwood	WA	98036-2244
+O9919699	2015-02-11	C9857432	E9954302	Homer Wells	123 Main St.	Seattle	WA	98105-4322
