@@ -1,0 +1,5 @@
+for file in q1 q2 q3 q4 q5
+do
+  rm $file.exp
+  mv ../$file.log $file.exp
+done

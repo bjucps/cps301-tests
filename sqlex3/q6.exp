@@ -1,0 +1,8 @@
+empno	empname	supname	empcommrate	empcommcategory
+E1329594	Landi Santos	Amy Tang	0.020	STANDARD
+E8544399	Joe Jenkins	Amy Tang	0.020	STANDARD
+E8843211	Amy Tang	Thomas Johnson	0.040	SILVER
+E9345771	Colin White	Thomas Johnson	0.040	SILVER
+E9884325	Thomas Johnson	NULL	0.050	GOLD
+E9954302	Mary Hill	Amy Tang	0.020	STANDARD
+E9973110	Theresa Beck	Thomas Johnson	NULL	NULL
