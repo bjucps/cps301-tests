@@ -17,7 +17,7 @@ sudo systemctl start mysql.service
 # Rest of script runs in submission folder
 cd submission
 export SUBMISSION_DIR=$(pwd)
-export MYSQL_INIT_PW=--password=root
+export MYSQL_INIT_PW="--user=root --password=root"
 
 # Don't check the initial commit
 if git log --pretty=oneline -n 1 | grep -q "Initial commit"
