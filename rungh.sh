@@ -13,6 +13,7 @@ if [ ! -d submission ]; then
 fi
 
 sudo systemctl start mysql.service
+sudo pip3 install  pytest mysql-connector
 export DBPASS=root
 
 # Rest of script runs in submission folder
