@@ -13,7 +13,7 @@ if [ ! -d submission ]; then
 fi
 
 sudo systemctl start mysql.service
-sudo pip3 install  pytest mysql-connector
+sudo pip3 install -q pytest mysql-connector
 #export DBPASS=root
 export MYSQL_INIT_PW="--password=root"
 
