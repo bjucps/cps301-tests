@@ -10,7 +10,7 @@ function import_db {
     return 1
   fi
   echo
-  echo -n "Syntax check of $SQL_SCRIPT: "
+  echo -n "MYSQL Syntax check of $SQL_SCRIPT: "
   mysql -e "drop database if exists $DBNAME"
   mysql -e "create database $DBNAME"
 
@@ -49,7 +49,7 @@ function import_sqlite_db {
 tr A-Z a-z < $SUBMISSION_DIR/wso.sql > /tmp/wso.sql
 
 pass="FAIL"
-if stderr=$(import_db wso.sql 2>&1); then
+if import_db wso.sql 2>&1; then
     pass="PASS"
 fi
 report-result  $pass "Must Pass" "valid wso.sql" 
@@ -58,13 +58,13 @@ if [ -r $SUBMISSION_DIR/wsoschema.sql ]
 then
   tr A-Z a-z < $SUBMISSION_DIR/wsoschema.sql > /tmp/wsoschema.sql
   pass="FAIL"
-  if stderr=$(import_db wsoschema.sql 2>&1); then
+  if import_db wsoschema.sql 2>&1; then
       pass="PASS"
   fi
   report-result $pass "WSOSchema" "wsoschema.sql imports in MySQL"  
 
   pass="FAIL"
-  if stderr=$(import_sqlite_db wsoschema.sql 2>&1); then
+  if import_sqlite_db wsoschema.sql 2>&1; then
       pass="PASS"
   fi
   # Delete database
@@ -75,8 +75,8 @@ else
   report-error "Warning" "Missing wsoschema.sql"
 fi
 
-require-pdf report.pdf
-
 do_sql_test 3
+
+require-pdf report.pdf
 
 rm /tmp/*.sql
