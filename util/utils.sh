@@ -307,11 +307,10 @@ function do_sql_test {
     then
         max_submits=3
         commit_count=$(git log --pretty="%an %s" | grep -v "GitHub" | grep -v "Merge" | wc -l)
-        # if [ "$commit_count" -gt $max_submits ]
-        # then
-        #     report-error "Notice" "$commit_count submissions - no autograding performed"
-        #     return
-        # fi
+        if [ "$commit_count" -gt $max_submits ]
+        then
+            report-error "Notice" "$commit_count submissions exceeds free allowance"
+        fi
     fi
 
     export PYTHONPATH=$TEST_BASE_DIR/util
