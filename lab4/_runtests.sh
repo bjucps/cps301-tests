@@ -29,7 +29,7 @@ function import_db {
 }
 
 pass="FAIL"
-if stderr=$(import_db lab4.sql 2>&1); then
+if import_db lab4.sql; then
     pass="PASS"
 fi
 report-result "Must Pass" "valid lab4.sql" $pass 
