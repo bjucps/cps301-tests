@@ -67,8 +67,8 @@ function run-tests {
     mysql $MYSQL_INIT_PW -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY ''"
     mysql $MYSQL_INIT_PW -e "flush privileges"
 
-    mysql -e "create database ordentry"
-    mysql ordentry < $TEST_BASE_DIR/util/ordentry.sql
+    mysql --user=root -e "create database ordentry"
+    mysql --user=root ordentry < $TEST_BASE_DIR/util/ordentry.sql
 
     echo "Beginning test run with timeout $TIMEOUT"
     result=0
