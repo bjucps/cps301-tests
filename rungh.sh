@@ -15,7 +15,7 @@ fi
 sudo systemctl start mysql.service
 sudo pip3 install  pytest mysql-connector
 #export DBPASS=root
-export MYSQL_INIT_PW="--password root"
+export MYSQL_INIT_PW="--password=root"
 
 # Rest of script runs in submission folder
 cd submission
