@@ -1,13 +1,23 @@
 # README
 
+This repository contains tests for CpS 301.
+
 To run tests locally:
+
+First, build a local Docker container:
+```
+cd Docker
+build.cmd
+```
+
+Then, to test a submission, use the run.cmd script in this folder:
 
 ```
 cd submission-folder
-run lab1
+\path\to\cps301-tests\run lab1
 ```
 
-To run tests interactively:
+To run tests interactively in Docker container:
 
 ```
 cd submission-folder
