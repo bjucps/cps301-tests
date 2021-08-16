@@ -1,4 +1,4 @@
-export DBNAME=lab5
+export DBNAME=lab4
 
 function import_db {
   SQL_SCRIPT=$1
@@ -29,10 +29,10 @@ function import_db {
 }
 
 pass="FAIL"
-if stderr=$(import_db lab5.sql 2>&1); then
+if stderr=$(import_db lab4.sql 2>&1); then
     pass="PASS"
 fi
-report-result "Must Pass" "valid lab5.sql" $pass 
+report-result "Must Pass" "valid lab4.sql" $pass 
 
 require-pdf report.pdf
 
