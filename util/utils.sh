@@ -303,7 +303,21 @@ function do_sql_test {
 
     SQL_TEST=$1
 
-    export PYTHONPATH=$TEST_BASE_DIR/util  
+    if [ -r .git ]
+    then
+        max_submits=3
+        commit_count=$(git log --pretty="%an %s" | grep -v "GitHub" | grep -v "Merge" | wc -l)
+        # if [ "$commit_count" -gt $max_submits ]
+        # then
+        #     report-error "Notice" "$commit_count submissions - no autograding performed"
+        #     return
+        # fi
+    fi
+
+    export PYTHONPATH=$TEST_BASE_DIR/util
+
+    echo "Autograding submission #$commit_count (first 3 are free)"
+
     python3 $TEST_DIR/_sqltest.py
 
 }

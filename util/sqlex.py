@@ -153,7 +153,7 @@ def printReport(results):
           outstr += '      ' + row.replace('\t', ' | ') + '\n'
 
     print(outstr)
-    report_result('Warning', f'{id} passed all tests', allpassed, outstr)
+    report_result('Notice', f'{id} passed all tests', allpassed, outstr)
 
   return totalPoints
 
