@@ -1,3 +1,3 @@
 
 require-pdf report.pdf
-do_sql_test sqlex3
+do_sql_test 3

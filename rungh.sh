@@ -13,6 +13,7 @@ if [ ! -d submission ]; then
 fi
 
 sudo systemctl start mysql.service
+export DBPASS=root
 
 # Rest of script runs in submission folder
 cd submission

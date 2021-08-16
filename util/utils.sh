@@ -301,22 +301,21 @@ function sql_check {
 
 function do_sql_test {
 
-    SQL_TEST=$1
+    local MAX_RUNS=$1
 
-    if [ -r .git ]
+    if [ -r .git -a -n "$MAX_RUNS" ]
     then
-        max_submits=3
         commit_count=$(git log --pretty="%an %s" | grep -iv "GitHub" | grep -v "Merge" | wc -l)
-        if [ "$commit_count" -gt $max_submits ]
+        if [ "$commit_count" -gt $MAX_RUNS ]
         then
             report-error "Notice" "$commit_count submissions exceeds free allowance"
         fi
+
+        echo "Autograding submission #$commit_count (first $MAX_RUNS are free)"
+
     fi
 
     export PYTHONPATH=$TEST_BASE_DIR/util
-
-    echo "Autograding submission #$commit_count (first 3 are free)"
-
     python3 $TEST_DIR/_sqltest.py
 
 }

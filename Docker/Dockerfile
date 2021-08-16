@@ -1,4 +1,4 @@
-FROM ubuntu:18.04 
+FROM ubuntu:20.04 
 
 RUN apt-get update && apt-get install -y curl wget unzip python3 sqlite3 lsb-release gnupg
 RUN apt install -y python3-pip
