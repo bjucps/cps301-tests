@@ -58,8 +58,8 @@ def checkresult(testname, output, ignoreSort=False):
   EXPECTED = open(os.path.join(EXPDIR, testname + '.exp')).readlines()
   EXPECTED = [row.strip() for row in EXPECTED]
   
-  EXPECTED_COLS = EXPECTED[0]
-  ACTUAL_COLS = ACTUAL[0]
+  EXPECTED_COLS = EXPECTED[0].lower()
+  ACTUAL_COLS = ACTUAL[0].lower()
   if EXPECTED_COLS == ACTUAL_COLS:
     result = OK
     points = POINTS_COLS_CORRECT
@@ -67,7 +67,7 @@ def checkresult(testname, output, ignoreSort=False):
   else:
     result = FAIL
     points = 0
-    output = 'Expected Columns: ' + ','.join(col.strip() for col  in EXPECTED[0].split('\t'))
+    output = 'Expected Columns: ' + ','.join(col.strip() for col  in EXPECTED_COLS.split('\t'))
 
   CHK_COL = makeResult('Column Check', result, points, output)
 
