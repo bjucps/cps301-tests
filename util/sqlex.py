@@ -35,8 +35,11 @@ def runsql(testname, sql):
   # print("Read: " + output + ", returncode:" + str(result.returncode))
   points = 0
 
-  if 'ERROR' in output or result.returncode != 0:
+  if 'ERROR' in output or result.returncode != 0 or output.strip() == '':
     testresult = FAIL
+    if output.strip() == '':
+      result = runCmd('mysql --show-warnings ordentry', input=sql)
+      output = result.stdout.strip()
   else:
     points = POINTS_QUERY_RUNS
     testresult = OK

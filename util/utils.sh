@@ -70,6 +70,8 @@ function run-tests {
     mysql -e "create database ordentry"
     mysql ordentry < $TEST_BASE_DIR/util/ordentry.sql
 
+    mysql -e "SET GLOBAL sql_mode = 'ANSI'";
+
     echo "Beginning test run with timeout $TIMEOUT"
     result=0
     if BASH_ENV=$TEST_BASE_DIR/util/utils.sh timeout -k 1 $TIMEOUT bash _runtests.sh  2>&1 | tee $LOG_FILE
