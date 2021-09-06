@@ -173,13 +173,16 @@ def runTests(tests, ignoreSortTests=[], precheckTests=None):
   for test in tests:
     
     sqlFile = os.path.join(QUERYDIR, test + '.sql')
-    if exists(sqlFile):
-      sql = open(sqlFile).read()
-      num_files_found += 1
-      CHK_SYNTAX = runsql(test, sql)
-    else:
-      CHK_SYNTAX = makeResult('Execute Query', FAIL, 0, f'{test}.sql not submitted')
-    
+    try:
+      if exists(sqlFile):
+        sql = open(sqlFile).read()
+        num_files_found += 1
+        CHK_SYNTAX = runsql(test, sql)
+      else:
+        CHK_SYNTAX = makeResult('Execute Query', FAIL, 0, f'{test}.sql not submitted')
+    except Exception as e:    
+      CHK_SYNTAX = makeResult('Execute Query', FAIL, 0, f'{test}.sql not a valid .sql file: {e}')
+      
     if CHK_SYNTAX['result'] == OK:
       num_syntax_ok += 1
       result = None
