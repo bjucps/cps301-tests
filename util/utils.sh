@@ -307,7 +307,12 @@ function do_sql_test {
 
     if [ -r .git -a -n "$MAX_RUNS" ]
     then
-        commit_count=$(git log --pretty="%an %s" | grep -iv "GitHub" | grep -v "Merge" | wc -l)
+        commit_count=$(
+              git log --pretty="%an | %s" | 
+              grep -iv "[^|]*GitHub" |        # Exclude updates by "GitHub"
+              grep -v "Merge" |          # Exclude "Merge" updates
+              grep -iv "[^|]*schaub" |   # Exclude updates by "sschaub"
+              wc -l)
         if [ "$commit_count" -gt $MAX_RUNS ]
         then
             report-error "Notice" "$commit_count submissions exceeds free allowance"
