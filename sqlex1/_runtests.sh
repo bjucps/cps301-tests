@@ -1,3 +1,3 @@
 
-require-pdf report.pdf
-do_sql_test 3
+require-files report.md
+do_sql_test 1

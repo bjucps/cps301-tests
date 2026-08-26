@@ -49,6 +49,35 @@ def runsql(testname, sql):
 
   return makeResult('Execute Query', testresult, points, output)
 
+def runsql_sqlite(testname, sql):
+
+  logfile = testname + '.log'
+
+  with open(f"{BASEDIRNAME}/ordentry.sql") as f:
+    all_sql = f.read()
+  all_sql += f"\n.nullvalue NULL\n{sql}"
+  result = runCmd('sqlite3 -header -separator "\t" :memory:', input=all_sql)
+
+  output = result.stdout.strip()
+
+  # print("Read: " + output + ", returncode:" + str(result.returncode))
+  points = 0
+
+  if 'Parse error' in output or result.returncode != 0 or output.strip() == '':
+    testresult = FAIL
+    # if output.strip() == '':
+    #   result = runCmd('mysql --show-warnings ordentry', input=sql)
+    #   output = result.stdout.strip()
+  else:
+    points = POINTS_QUERY_RUNS
+    testresult = OK
+
+  with open(logfile, 'w') as f:
+    f.write(output)
+
+  return makeResult('Execute Query', testresult, points, output)
+
+
 def makeResult(testName, result, points, output):
   return { 'test': testName, 'result': result, 'points': points, 'output': output }
 
@@ -56,10 +85,13 @@ def getRows(output):
   #print(output)
   return output[1:]
 
+def strip_nums(lst):
+  return [re.sub(r'\.\d+', '', s) for s in lst]
+
 def checkresult(testname, output, ignoreSort=False):
-  ACTUAL = [row.strip() for row in output.split('\n')]
+  ACTUAL = strip_nums([row.strip() for row in output.split('\n')])
   EXPECTED = open(os.path.join(EXPDIR, testname + '.exp')).readlines()
-  EXPECTED = [row.strip() for row in EXPECTED]
+  EXPECTED = strip_nums([row.strip() for row in EXPECTED])
   
   EXPECTED_COLS = EXPECTED[0].lower()
   ACTUAL_COLS = ACTUAL[0].lower()
@@ -177,7 +209,7 @@ def runTests(tests, ignoreSortTests=[], precheckTests=None):
       if exists(sqlFile):
         sql = open(sqlFile).read()
         num_files_found += 1
-        CHK_SYNTAX = runsql(test, sql)
+        CHK_SYNTAX = runsql_sqlite(test, sql)
       else:
         CHK_SYNTAX = makeResult('Execute Query', FAIL, 0, f'{test}.sql not submitted')
     except Exception as e:    

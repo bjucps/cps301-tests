@@ -318,7 +318,8 @@ function do_sql_test {
             report-error "Notice" "$commit_count submissions exceeds free allowance"
         fi
 
-        echo "Autograding submission #$commit_count (first $MAX_RUNS are free)"
+        echo "Autograding submission #$commit_count (first $MAX_RUNS free)"
+        echo "Checking submission #$commit_count"
 
     fi
 
